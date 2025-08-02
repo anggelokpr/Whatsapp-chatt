@@ -46,7 +46,7 @@
 <body>
   <div class="container">
     <h2>Enviar mensaje por WhatsApp</h2>
-    <input type="tel" id="phoneInput" placeholder="Ej: 34611223344" />
+    <input type="tel" id="phoneInput" placeholder="Ej: 611223344" />
     <button onclick="openWhatsApp()">Abrir Chat</button>
   </div>
 
@@ -64,10 +64,11 @@
       const sanitizedPhone = phone.replace(/\D/g, '');
 
       // Construye el link y abre en nueva pestaña
-      const url = `https://wa.me/0034${sanitizedPhone}`;
+      const url = `https://wa.me/34${sanitizedPhone}`;
       window.open(url, '_blank');
     }
   </script>
 </body>
 </html>
+
 
