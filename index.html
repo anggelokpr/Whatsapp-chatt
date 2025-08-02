@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>WhatsApp Chat Redirect</title>
+  <title>Chat WhatsApp España</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -11,64 +12,79 @@
       align-items: center;
       height: 100vh;
       background-color: #f0f0f0;
+      margin: 0;
     }
 
     .container {
       background: white;
-      padding: 20px;
-      border-radius: 10px;
+      padding: 25px;
+      border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       text-align: center;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
     }
 
     input[type="tel"] {
-      padding: 10px;
-      width: 200px;
-      font-size: 16px;
-      margin-right: 10px;
+      padding: 12px;
+      width: 70%;
+      font-size: 18px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
 
     button {
-      padding: 10px 15px;
-      font-size: 16px;
+      padding: 12px 20px;
+      font-size: 18px;
       cursor: pointer;
       background-color: #25d366;
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
     }
 
     button:hover {
       background-color: #1ebe5b;
+    }
+
+    @media (max-width: 600px) {
+      input[type="tel"], button {
+        width: 100%;
+        font-size: 20px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h2>Enviar mensaje por WhatsApp</h2>
-    <input type="tel" id="phoneInput" placeholder="Ej: 611223344" />
+    <input type="tel" id="phoneInput" placeholder="Ej: 611223344" maxlength="9" />
+    <br>
     <button onclick="openWhatsApp()">Abrir Chat</button>
   </div>
 
   <script>
     function openWhatsApp() {
-      const phone = document.getElementById("phoneInput").value.trim();
+      const input = document.getElementById("phoneInput");
+      const rawNumber = input.value.trim().replace(/\D/g, '');
 
-      // Validación básica
-      if (phone === "") {
-        alert("Por favor, introduce un número de teléfono.");
+      // Validación: solo móviles españoles que empiecen por 6 o 7 y tengan 9 dígitos
+      const validSpanishMobile = /^[67]\d{8}$/;
+
+      if (!validSpanishMobile.test(rawNumber)) {
+        alert("Por favor, introduce un número de móvil válido de España (9 dígitos, empieza por 6 o 7).");
         return;
       }
 
-      // Elimina cualquier carácter no numérico
-      const sanitizedPhone = phone.replace(/\D/g, '');
-
-      // Construye el link y abre en nueva pestaña
-      const url = `https://wa.me/34${sanitizedPhone}`;
+      const fullNumber = "34" + rawNumber; // Añade el prefijo de España automáticamente
+      const url = `https://wa.me/${fullNumber}`;
       window.open(url, '_blank');
     }
   </script>
 </body>
 </html>
-
-
